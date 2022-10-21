@@ -1,9 +1,10 @@
 package com.example.demo.services;
 
 import com.example.demo.entities.User;
-import com.example.demo.entities.dto.UserDTO;
+import com.example.demo.entities.dto.*;
 import com.example.demo.repositories.UserRepository;
 import lombok.*;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
@@ -11,27 +12,30 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository repository;
+    private final ModelMapper    mapper;
 
-    public Page<User> findAllUsers(Pageable pageable) {
-        return repository.findAll(pageable);
+    public Page<ResponseUserDTO> findAllUsers(Pageable pageable) {
+        return repository.findAll(pageable).map(user -> mapper.map(user, ResponseUserDTO.class));
     }
 
-    public User findUserById(Long id) {
-        return repository.findById(id).get();
+    public ResponseUserDTO findUserById(Long id) {
+        User user = repository.findById(id).get();
+        return mapper.map(user, ResponseUserDTO.class);
     }
 
-    public User save(UserDTO userDTO) {
-        return repository.save(new User(null, userDTO.getLogin(), userDTO.getPassword()));
+    public ResponseUserDTO save(UserDTO userDTO) {
+        User user = mapper.map(userDTO, User.class);
+        return mapper.map(repository.save(user), ResponseUserDTO.class);
     }
 
     public void delete(Long id) {
         repository.deleteById(id);
     }
 
-    public User update(Long id, UserDTO userDTO) {
+    public ResponseUserDTO update(Long id, UserDTO userDTO) {
         User entity = repository.findById(id).get();
         updateData(entity, userDTO);
-        return repository.save(entity);
+        return mapper.map(repository.save(entity), ResponseUserDTO.class);
     }
 
     private void updateData(User entity, UserDTO dto){
