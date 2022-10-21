@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.entities.dto.*;
+import com.example.demo.security.jwt.RespostaDeLogin;
 import com.example.demo.services.UserService;
 import lombok.*;
 import org.springframework.data.domain.*;
@@ -29,6 +30,11 @@ public class UserController {
     @PostMapping(value = "/create", produces = "application/json", consumes = "application/json")
     public ResponseEntity<ResponseUserDTO> saveUser(@RequestBody @Valid UserDTO userDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(userDTO));
+    }
+
+    @PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<RespostaDeLogin> login(@RequestBody UserDTO userDTO) {
+        return ResponseEntity.ok().body(service.login(userDTO));
     }
 
     @PutMapping(value = "/update/{idUser}", produces = "application/json", consumes = "application/json")
