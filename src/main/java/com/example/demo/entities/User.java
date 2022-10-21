@@ -16,7 +16,7 @@ public class User implements Serializable {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@EqualsAndHashCode.Include @Column(name = "id_user")
-	private Long idUser;
+	private Long   idUser;
 	private String login;
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
