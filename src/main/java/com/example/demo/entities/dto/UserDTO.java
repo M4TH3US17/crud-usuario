@@ -5,12 +5,11 @@ import lombok.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 
-@NoArgsConstructor @AllArgsConstructor @Data
+@NoArgsConstructor @Data
 public class UserDTO implements Serializable {
 
     @NotBlank(message = "")
-    private String login;
+    private String username;
     @NotBlank(message = "")
     private String password;
-
 }

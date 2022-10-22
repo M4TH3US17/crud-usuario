@@ -68,10 +68,8 @@ public class SwaggerConfig {
     }
 
     @Bean
-    public WebMvcConfigurer webMvcConfigurer()
-    {
-        return new WebMvcConfigurer()
-        {
+    public WebMvcConfigurer webMvcConfigurer() {
+        return new WebMvcConfigurer() {
             @Override
             public void addResourceHandlers( ResourceHandlerRegistry registry )
             {

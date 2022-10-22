@@ -13,6 +13,6 @@ public class ResponseUserDTO implements Serializable {
 
     public ResponseUserDTO(User user) {
         idUser   = user.getIdUser();
-        username = user.getLogin();
+        username = user.getUsername();
     }
 }

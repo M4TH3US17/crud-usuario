@@ -15,7 +15,7 @@ public class JWTService {
 
     public String generationToken(User obj) {
         return Jwts.builder()
-                .setSubject(obj.getLogin())
+                .setSubject(obj.getUsername())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
