@@ -3,6 +3,7 @@ package com.example.demo.security;
 import com.example.demo.entities.User;
 
 import com.example.demo.repositories.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.*;
@@ -14,8 +15,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserRepository repository;
 
     @Override
-    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        User user = repository.findUserByUsername(login);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = repository.findUserByUsername(username);
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getAuthorities());
     }
 }

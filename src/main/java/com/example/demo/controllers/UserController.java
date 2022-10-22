@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController @CrossOrigin("*")
-@RequestMapping(name = "/api/v1/users")
+@RequestMapping("/api/v1/users")
 @RequiredArgsConstructor @Api("Usuário WebServices")
 public class UserController {
 
