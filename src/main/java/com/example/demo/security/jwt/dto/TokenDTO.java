@@ -5,7 +5,7 @@ import lombok.*;
 import java.io.Serializable;
 
 @NoArgsConstructor @AllArgsConstructor @Data
-public class RespostaDeLogin implements Serializable {
+public class TokenDTO implements Serializable {
 
     private String token;
 

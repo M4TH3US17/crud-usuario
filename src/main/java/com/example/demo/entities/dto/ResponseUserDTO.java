@@ -10,9 +10,13 @@ public class ResponseUserDTO implements Serializable {
 
     private Long   idUser;
     private String username;
+    private String contact;
+    private Integer age;
 
     public ResponseUserDTO(User user) {
         idUser   = user.getIdUser();
         username = user.getUsername();
+        contact  = user.getContact();
+        age      = user.getAge();
     }
 }

@@ -10,6 +10,12 @@ public class UserDTO implements Serializable {
 
     @NotBlank(message = "")
     private String username;
+
     @NotBlank(message = "")
     private String password;
+
+    @NotBlank(message = "")
+    private String contact;
+
+    private Integer age;
 }

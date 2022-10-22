@@ -21,7 +21,9 @@ public class User implements Serializable, UserDetails {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@EqualsAndHashCode.Include @Column(name = "id_user")
 	private Long   idUser;
-	private String username;
+	private String  username;
+	private Integer age;
+	private String  contact;
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
 	@Enumerated(EnumType.STRING)

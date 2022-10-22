@@ -1,9 +1,9 @@
 package com.example.demo.controllers;
 
-import com.example.demo.entities.User;
 import com.example.demo.entities.dto.ResponseUserDTO;
 import com.example.demo.entities.dto.UserDTO;
-import com.example.demo.security.jwt.RespostaDeLogin;
+import com.example.demo.security.jwt.TokenDTO;
+import com.example.demo.security.jwt.dto.CredentialsDTO;
 import com.example.demo.services.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -44,8 +44,8 @@ public class UserController {
 
     @ApiOperation("Autentica usuário no sistema.")
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<RespostaDeLogin> login(@RequestBody UserDTO userDTO) {
-        return ResponseEntity.ok().body(service.login(userDTO));
+    public ResponseEntity<TokenDTO> login(@RequestBody @Valid CredentialsDTO credentials) {
+        return ResponseEntity.ok().body(service.login(credentials));
     }
 
     @ApiOperation("Atualiza um determinado usuário.")

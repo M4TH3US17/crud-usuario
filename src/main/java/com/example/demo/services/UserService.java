@@ -7,7 +7,8 @@ import com.example.demo.entities.enums.RoleUser;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.security.UserDetailsServiceImpl;
 import com.example.demo.security.jwt.JWTService;
-import com.example.demo.security.jwt.RespostaDeLogin;
+import com.example.demo.security.jwt.TokenDTO;
+import com.example.demo.security.jwt.dto.CredentialsDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -53,14 +54,14 @@ public class UserService {
         return new ResponseUserDTO(repository.save(entity));
     }
 
-    public RespostaDeLogin login (UserDTO userDTO) {
+    public TokenDTO login (CredentialsDTO userDTO) {
         UserDetails user = userDetailsImpl.loadUserByUsername(userDTO.getUsername());
         boolean senhaEhValida = passwordEncoder.matches(userDTO.getPassword(), user.getPassword());
 
         try {
             if (senhaEhValida) {
                 User usuarioDoBanco = repository.findUserByUsername(user.getUsername());
-                return new RespostaDeLogin(Jwt.generationToken(usuarioDoBanco));
+                return new TokenDTO(Jwt.generationToken(usuarioDoBanco));
             }
         } catch (UsernameNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username ou Senha Inválidos!");
@@ -72,6 +73,8 @@ public class UserService {
         if(entity.getRole() == null) entity.setRole(RoleUser.ROLE_USER);
 
         entity      .setUsername(dto.getUsername());
+        entity      .setAge(dto.getAge());
+        entity      .setContact(dto.getContact());
         entity.setPassword(passwordEncoder.encode(dto.getPassword()));
     }
 }
