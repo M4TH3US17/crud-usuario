@@ -8,9 +8,10 @@ import java.io.Serializable;
 @Data @NoArgsConstructor
 public class CredentialsDTO implements Serializable {
 
-    @NotBlank(message = "")
+    @NotBlank(message = "{credentials.username.not.blank}")
     private String username;
-    @NotBlank(message = "")
+
+    @NotBlank(message = "{credentials.password.not.blank}")
     private String password;
 
 }

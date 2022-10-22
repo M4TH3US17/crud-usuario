@@ -32,7 +32,7 @@ public class UserController {
 
     @ApiOperation("Busca um usuário por id.")
     @GetMapping(value = "/find/{idUser}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseUserDTO> findUserById(@PathVariable("idUser") Long idUser) {
+    public ResponseEntity<ResponseUserDTO> findUserById(@PathVariable("idUser") Long idUser) throws Exception {
         return ResponseEntity.status(HttpStatus.OK).body(service.findUserById(idUser));
     }
 
@@ -50,13 +50,13 @@ public class UserController {
 
     @ApiOperation("Atualiza um determinado usuário.")
     @PutMapping(value = "/update/{idUser}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseUserDTO> updateUser(@PathVariable("idUser") Long idUser, @RequestBody @Valid UserDTO userDTO) {
+    public ResponseEntity<ResponseUserDTO> updateUser(@PathVariable("idUser") Long idUser, @RequestBody @Valid UserDTO userDTO) throws Exception {
         return ResponseEntity.ok().body(service.update(idUser, userDTO));
     }
 
     @ApiOperation("Deleta um usuário por id.")
     @DeleteMapping(value = "/delete/{idUser}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> deleteUser(@PathVariable("idUser") Long idUser) {
+    public ResponseEntity<Void> deleteUser(@PathVariable("idUser") Long idUser) throws Exception {
         service.delete(idUser);
         return ResponseEntity.ok().build();
     }
