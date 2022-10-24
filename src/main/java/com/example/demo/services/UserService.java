@@ -1,25 +1,22 @@
 package com.example.demo.services;
 
 import com.example.demo.entities.User;
-import com.example.demo.entities.dto.ResponseUserDTO;
-import com.example.demo.entities.dto.UserDTO;
+import com.example.demo.entities.dto.*;
 import com.example.demo.entities.enums.RoleUser;
 import com.example.demo.exeptions.notfound.UserNotFoundException;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.security.UserDetailsServiceImpl;
-import com.example.demo.security.jwt.JWTService;
-import com.example.demo.security.jwt.TokenDTO;
+import com.example.demo.security.jwt.*;
 import com.example.demo.security.jwt.dto.CredentialsDTO;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import com.example.demo.security.jwt.TokenDTO;
 
 @Slf4j
 @Service @RequiredArgsConstructor
@@ -64,11 +61,10 @@ public class UserService {
 
         try {
             if (senhaEhValida) {
-                User usuarioDoBanco = repository.findUserByUsername(user.getUsername())
-                        .orElseThrow(() -> new UserNotFoundException("Username Incorreto!"));
+                User usuarioDoBanco = repository.findUserByUsername(user.getUsername());
                 return new TokenDTO(Jwt.generationToken(usuarioDoBanco));
             }
-        } catch (UsernameNotFoundException | UserNotFoundException e) {
+        } catch (UsernameNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username ou Senha Inválidos!");
         }
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Senha Inválida!");
@@ -77,9 +73,9 @@ public class UserService {
     private void updateData(User entity, UserDTO dto){
         if(entity.getRole() == null) entity.setRole(RoleUser.ROLE_USER);
 
-        entity      .setUsername(dto.getUsername());
-        entity      .setAge(dto.getAge());
-        entity      .setContact(dto.getContact());
-        entity.setPassword(passwordEncoder.encode(dto.getPassword()));
+        if(dto.getUsername() != null) entity.setUsername(dto.getUsername());
+        if(dto.getAge()      != null) entity.setAge(dto.getAge());
+        if(dto.getContact()  != null) entity.setContact(dto.getContact());
+        if(dto.getPassword() != null) entity.setPassword(passwordEncoder.encode(dto.getPassword()));
     }
 }

@@ -28,7 +28,7 @@ public class ApiExceptionHandler {
         return new ResponseEntity<>(erro, new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE);
     }
 
-    @ExceptionHandler({UserNotFoundException.class, UsernameNotFoundException.class})
+    @ExceptionHandler({UserNotFoundException.class, UsernameNotFoundException.class, NullPointerException.class})
     public ResponseEntity<ErrorDetails> entidadeNotFoundException(Exception e) {
         ErrorDetails error = new ErrorDetails(LocalDateTime.now().format(formatter), HttpStatus.BAD_REQUEST.value(), e.getLocalizedMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);

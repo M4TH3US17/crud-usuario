@@ -16,6 +16,6 @@ public class CrudUsuarioApplication implements WebMvcConfigurer {
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**")
 				.allowedOrigins("*")
-				.allowedMethods("GET", "PUT", "POST",  "OPTIONS", "DELETE", "HEAD", "TRACE", "CONNECT");
+				.allowedMethods("GET", "PUT", "PATCH", "POST",  "OPTIONS", "DELETE", "HEAD", "TRACE", "CONNECT");
 	}
 }

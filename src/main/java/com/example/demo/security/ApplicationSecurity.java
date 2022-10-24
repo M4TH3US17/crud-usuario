@@ -27,7 +27,7 @@ public class ApplicationSecurity {
 
                 .antMatchers(HttpMethod.GET,    "/api/v1/users/**")     .hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/v1/users/**")     .hasAnyRole("USER", "ADMIN")
-                .antMatchers(HttpMethod.PUT,    "/api/v1/users/**")     .hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.PATCH,   "/api/v1/users/**")     .hasAnyRole("USER", "ADMIN")
 
         .and() .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and().addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);

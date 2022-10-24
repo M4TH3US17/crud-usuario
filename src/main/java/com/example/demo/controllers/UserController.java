@@ -1,24 +1,20 @@
 package com.example.demo.controllers;
 
-import com.example.demo.entities.dto.ResponseUserDTO;
-import com.example.demo.entities.dto.UserDTO;
+import com.example.demo.entities.dto.*;
 import com.example.demo.security.jwt.TokenDTO;
 import com.example.demo.security.jwt.dto.CredentialsDTO;
 import com.example.demo.services.UserService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import io.swagger.annotations.*;
+import lombok.*;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.*;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController @CrossOrigin("*")
-@RequestMapping("/api/v1/users")
+@RequestMapping("/api/v1/users") @Slf4j
 @RequiredArgsConstructor @Api("Usuário WebServices")
 public class UserController {
 
@@ -49,8 +45,8 @@ public class UserController {
     }
 
     @ApiOperation("Atualiza um determinado usuário.")
-    @PutMapping(value = "/update/{idUser}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseUserDTO> updateUser(@PathVariable("idUser") Long idUser, @RequestBody @Valid UserDTO userDTO) throws Exception {
+    @PatchMapping(value = "/update/{idUser}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponseUserDTO> updateUser(@PathVariable("idUser") Long idUser, @RequestBody UserDTO userDTO) throws Exception {
         return ResponseEntity.ok().body(service.update(idUser, userDTO));
     }
 
